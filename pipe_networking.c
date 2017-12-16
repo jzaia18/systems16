@@ -1,6 +1,6 @@
 #include "pipe_networking.h"
 
-#define DEBUGGING 1
+#define DEBUGGING 0
 
 /*=========================
   server_handshake
@@ -15,7 +15,7 @@ int server_handshake(int *to_client) {
   char buf[HANDSHAKE_BUFFER_SIZE];
 
   //Read from client
-  if (DEBUGGING) printf("Server: Trying to read from client...\n");
+  printf("Server: Waiting on client...\n");
   mkfifo(TO_SERVER_PIPE, 0644);
   int from_client = open(TO_SERVER_PIPE, O_RDONLY);
   read(from_client, buf, sizeof(buf));
@@ -73,7 +73,7 @@ int client_handshake(int *to_server) {
   else
     printf("Client: Connection established.\n");
 
-  if (DEBUGGING) ("Client: Writing to server (again)\n");
+  if (DEBUGGING) printf("Client: Writing to server (again)\n");
   strcpy(buf, ACK);
   write(*to_server, buf, sizeof(buf));
 

@@ -1,5 +1,8 @@
 #include "pipe_networking.h"
 
+#ifndef DEBUGGING
+#define DEBUGGING 0
+#endif
 
 int main() {
 
@@ -15,7 +18,7 @@ int main() {
     *strchr(buf, '\n') = 0;
 
     write(to_server, buf, 100);
-    printf("Client: Sent!\n");
+    if (DEBUGGING) printf("Client: Sent!\n");
 
     read(from_server, buf, 100);
 
